@@ -14,10 +14,8 @@ class DatabasePool:
     async def initialize(self):
         """Initialize database connection pool"""
         try:
-            # Create async engine with connection pooling
-            # Inside Docker, the DB is reachable at hostname 'db' and port 5432
-            database_url = "postgresql+asyncpg://postgres:postgres@db:5432/propertyflow"
-
+            # Get database URL from settings and ensure it uses the asyncpg driver
+            database_url = settings.database_url
             self.engine = create_async_engine(
                 database_url,
                 pool_size=20,  # Number of connections to maintain
