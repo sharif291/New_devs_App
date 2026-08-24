@@ -14,8 +14,8 @@ class DatabasePool:
     async def initialize(self):
         """Initialize database connection pool"""
         try:
-            # Get database URL from settings and ensure it uses the asyncpg driver
-            database_url = settings.database_url
+            # Construct database URL from individual settings
+            database_url = f"postgresql+asyncpg://{settings.supabase_db_user}:{settings.supabase_db_password}@{settings.supabase_db_host}:{settings.supabase_db_port}/{settings.supabase_db_name}"
             self.engine = create_async_engine(
                 database_url,
                 pool_size=20,  # Number of connections to maintain
